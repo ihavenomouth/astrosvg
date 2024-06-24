@@ -1,0 +1,152 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Navbar.astro';
+
+const enlaces= [
+	{nombre:'Inicio', url:'/'},
+	{nombre:'Figuras básicas',url:'/figurasBasicas'},
+	{nombre:'PATH',url:'/path'},
+	{nombre:'Animaciones',url:'/animaciones'}
+];
+
+---
+
+<Layout title="CódigoFP: los SVG">
+  <header transition:animate="slide">
+		<h1>Inserción de los <span class="text-gradient">SVG</span></h1>
+	</header>
+
+	<Nav enlaces={enlaces}/>
+
+	<svg id="svgCuadrado1" width="400" height="400" xmlns="http://www.w3.org/2000/svg"
+	viewBox="0 0 100 100">
+		<rect width="100" height="100" x="0" y="0" fill="none" 
+		stroke="rebeccapurple"/>
+		
+				<animateTransform
+				attributeName="transform"
+				attributeType="XML"
+				type="rotate"
+				from="0"
+				to="360"
+				dur="50s"
+				repeatCount="indefinite" />
+		</rect>
+	</svg>
+
+	<svg id="svgTriangulo1" width="700" height="700" xmlns="http://www.w3.org/2000/svg" 
+	viewBox="0 0 100 100">
+		<path d="M50 1 l50 98 l-99 -1 Z" fill="none" 
+		stroke="rebeccapurple" vector-effect="non-scaling-stroke" 
+		stroke-linejoin="miter"/>
+		
+	</svg>
+
+	<main>
+		<p class="introducción">Insertar un archivo <span class="text-gradient">SVG</span> en un documento HTML es <strong>sorprendentemente sencillo</strong> lo que lo convierte en una opción ideal para añadir gráficos, ilustraciones y diagramas a una web.</p>
+
+		<p>El soporte para <span class="text-gradient">SVG</span> en los navegadores es amplio y sólido. <span class="text-gradient">SVG</span> forma parte de los <a href="https://www.w3.org/Graphics/SVG/About.html">estándares web</a>, pues ha sido desarrollado por la W3C desde 1999 y goza de una gran popularidad. Salvo que uses un navegador que dejó de actualizarse a principios de los 2000, no tendrás ningún problema.</p>
+
+		<h2>Inserción directamente dentro del HTML</h2>
+		<p>
+			La manera más sencilla de usar un <span class="text-gradient">SVG</span> consisten en usarlo dentro de una etiqueta de imagen: <code>&lt;img src="ejemplo.svg"&gt;</code>. El problema de esta aproximación es que se comportará como una imagen.</u>
+		</p>
+
+		<p>¿Pero no es eso precisamente lo que queremos? Pues depende. Lo que pasa es que ignorará los cambios que podamos realizarle al código del <span class="text-gradient">SVG</span> desde el CSS, como el color del borde o el color de relleno, por ejemplo.</p>
+
+		<p>
+		Por otro lado, se puede insertar directamente como si fuera un elemento HTML más (¡porque de hecho lo es!). Por ejemplo, en el código de abajo se inserta un icono dentro de un botón.
+		</p>
+
+			<pre>
+&lt;button id="btnIcono"&gt;
+  &lt;svg viewBox="0 0 100 100" width="16" height="16" 
+    xmlns="http://www.w3.org/2000/svg" class="ejemplo"&gt;
+    &lt;rect fill="currentcolor" 
+      width="100" height="10" x="0" y="50" /&gt;
+    &lt;rect fill="currentcolor" 
+      width="100" height="10" x="0" y="75" /&gt;
+  &lt;/svg&gt; Acción
+&lt;button&gt;
+			</pre>
+			
+			<br>
+
+			<button id="btnIcono">
+				<svg viewBox="0 0 100 100" width="16" height="16" xmlns="http://www.w3.org/2000/svg">
+					 <rect fill="currentcolor" width="100" height="10" x="0" y="50" fill="currentcolor"/>
+					 <rect fill="currentcolor" width="100" height="10" x="0" y="75" />
+				</svg> Acción
+			</button>
+			
+
+			<br>
+
+			<p>
+			Esta manera tiene la ventaja de permitir permite modificar sus propiedades con CSS, por ejemplo:
+			</p>
+<pre>
+.ejemplo&lcub;
+  fill: red;
+&rcub;
+</pre>
+
+<p>
+	En el ejemplo de arriba, se usa <code>fill= "currentcolor"</code>, que hará que el color de relleno del rectángulo que se dibuja sea el color actual establecido (o heredado) en el CSS.
+</p>
+
+		<h2>Referenciar el <span class="text-gradient">SVG</span> usando el id</h2>
+
+		<p>
+			Puesto que los SVG pueden llegar a tener un código muy largo, una manera de usarlos con facilidad es añadirles un <code>id</code>, colocarlos al final del HTML y referenciarlos en otra parte haciendo uso de ese <code>id</code>.
+		</p>
+		<p>Para evitar conflictos con los <code>id</code>, lo ideal es usar algún tipo de prefijo.</p>
+<pre>
+&lt;button&gt;
+  Volumen
+  &lt;svg&gt;&lt;use href="#svg-cuadrado"&gt;&lt;/use&gt;&lt;/svg&gt;
+&lt;/button&gt;
+			
+  ...
+			
+&lt;svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg""&gt;
+  &lt;symbol id="svg-cuadrado" fill="currentcolor"&gt;
+    &lt;rect width="8" height="8" x="8" y="8" /&gt;
+    &lt;rect width="5" height="5" x="0" y="11" /&gt;
+  &lt;/symbol&gt;
+&lt;/svg&gt;
+</pre>
+
+<button>Volumen 
+	<svg width="16" height="16"><use href="#svg-cuadrado"></use></svg>
+</button>
+			
+			<p>Este es el método que se usa en varios componentes de Bootstrap, por ejemplo. Para evitar conflictos los <code>id</code> son del tipo <code>bs-icon-arrow-left</code>.
+			<br>Referencia: <a href="https://icons.getbootstrap.com/#usage">Bootstrap icons</a>.
+			</p>
+	</main>
+
+
+
+	<svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" style="display:none">
+		<symbol id="svg-cuadrado" fill="currentcolor">
+			<rect width="8" height="8" x="8" y="8" />
+			<rect width="5" height="5" x="0" y="11" />
+		</symbol>
+	</svg>
+</Layout>
+
+
+<style>
+
+	#svgCuadrado1{
+		position:absolute;
+		z-index:-1;
+	}
+	#svgTriangulo1{
+		position:absolute;
+		z-index:-1;
+		top: 1000px;
+  	left: -250px;
+	}
+</style>

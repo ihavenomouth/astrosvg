@@ -1,0 +1,60 @@
+---
+interface Enlace {
+	nombre: string;
+  url: string;
+}
+
+interface Props {
+	enlaces: Array<Enlace>;
+}
+
+const { enlaces } = Astro.props;
+---
+
+
+<nav class="navbar-primary">
+  <ul class="navbar-primary__list">
+  {
+    enlaces.map(
+      (data) => <li class="navbar-primary__item"><a  href={data.url}>{data.nombre}</a></li>
+    )
+  }
+	</ul>
+</nav>
+
+<style>
+	.navbar-primary {
+		max-width: 80ch;
+		margin-inline: auto;
+		padding: 1px;
+		background-color: #223366;
+		border-radius: 4px;
+
+		transition: background-position 0.6s ease-in-out;
+		box-shadow: inset 0 0 0 2px var(--primary);
+	}
+	
+	.navbar-primary__list{
+		list-style: none;
+		display: flex;
+		gap:1rem;
+		justify-content: space-around;
+
+		a{
+			text-decoration: none;
+			font-variant: all-small-caps;
+			&:hover{
+				color: var(--text);
+			}
+		}
+	}
+	.navbar-primary__item{
+		padding-inline:0.25rem;
+		transition:transform 1s ease;
+		&:hover{
+			transform: scale(1.1);
+		}
+	}
+
+
+</style>

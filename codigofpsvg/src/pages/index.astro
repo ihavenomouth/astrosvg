@@ -1,0 +1,108 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Card from '../components/Card.astro';
+
+---
+
+<Layout title="CódigoFP: los SVG">
+
+	<header transition:animate="slide">
+		<h1>SVG y la magia de los <span class="text-gradient">gráficos vectoriales</span></h1>
+	</header>
+
+	<svg id="svgCuadrado1" width="200" height="200" xmlns="http://www.w3.org/2000/svg"
+	viewBox="0 0 100 100">
+		<rect width="100" height="100" x="0" y="0" fill="none" 
+		stroke="rebeccapurple"/>
+		
+				<animateTransform
+				attributeName="transform"
+				attributeType="XML"
+				type="rotate"
+				from="0"
+				to="360"
+				dur="10s"
+				repeatCount="indefinite" />
+		</rect>
+	</svg>
+	<svg id="svgCuadrado2" width="150" height="150" xmlns="http://www.w3.org/2000/svg"
+	viewBox="0 0 100 100">
+		<rect width="100" height="100" x="0" y="0" fill="none" 
+		stroke="rebeccapurple"/>
+		
+				<animateTransform
+				attributeName="transform"
+				attributeType="XML"
+				type="rotate"
+				from="0"
+				to="360"
+				dur="10s"
+				repeatCount="indefinite" />
+		</rect>
+	</svg>
+	<svg id="svgCuadrado3" width="100" height="100" xmlns="http://www.w3.org/2000/svg"
+	viewBox="0 0 100 100">
+		<rect width="100" height="100" x="0" y="0" fill="none" 
+		stroke="rebeccapurple"/>
+		
+				<animateTransform
+				attributeName="transform"
+				attributeType="XML"
+				type="rotate"
+				from="0"
+				to="360"
+				dur="10s"
+				repeatCount="indefinite" />
+		</rect>
+	</svg>
+	<main>
+		<p class="introducción">SVG es un formato de imágenes vectorial muy utilizado para crear iconos, logotipos, ilustraciones y gráficas que puede ser incrustado dentro de nuestro HTML sin necesidad de realizar ninguna modificación.</p>
+		
+		<p>Los gráficos vectoriales son un tipo de formato de imagen en el que aparecen descritos objetos geométricos, sus propiedades y las relaciones con otros objetos. Esto permite que se puedan estirar, escalar o comprimir sin pérdida de calidad.</p>
+		<section>
+			<h2>Sumario</h2>
+			<Card href="insercionSVG" title="Inserción de SVG" body="¿Cómo se inserta un SVG en el HTML?"/>
+
+			<Card href="figurasBasicas" title="Figuras geométricas" body="Introducción a las figuras geométricas básicas de SVG."/>
+			
+			<Card href="path" title="Path" body="Introducción al elemento más potente de SVG."/>
+
+			<Card href="animaciones" title="Crear SVG animados" body="¿SVG puede hacer eso? Sí, puedes crear SVG animados sin demasiado esfuerzo."/>
+		</section>
+	
+	</main>
+</Layout>
+
+
+
+
+
+<style>
+
+
+	svg{
+		position: absolute;
+		z-index: -1;
+		animation: mover-cuadrado 15s alternate forwards ease-in-out infinite;
+		left:100px;
+		top: 200px;
+	}
+	#svgCuadrado1{
+		animation-delay:0;
+	}
+	#svgCuadrado2{
+		animation-delay:3s;
+	}
+	#svgCuadrado3{
+		animation-delay:5s;
+	}
+	@keyframes mover-cuadrado{
+		0%{
+			left:100px;
+			top: 200px;
+		}
+		100%{
+			left: calc(100% - 300px);
+		}
+	}
+</style>

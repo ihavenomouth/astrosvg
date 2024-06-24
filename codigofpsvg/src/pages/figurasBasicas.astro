@@ -1,0 +1,727 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Navbar.astro';
+
+const enlaces= [
+	{nombre:'Inicio', url:'/'},
+	{nombre:'Inserción de SVG',url:'/insercionSVG'},
+	{nombre:'PATH',url:'/path'},
+  {nombre:'Animaciones',url:'/animaciones'}
+];
+
+---
+
+<Layout title="CódigoFP: SVG - Figuras básicas">
+  <header transition:animate="slide">
+		<h1>Figuras <span class="text-gradient">geométricas</span> básicas</h1>
+	</header>
+
+	<Nav enlaces={enlaces}/>
+
+
+
+	<svg id="svgCuadrado1" width="400" height="400" xmlns="http://www.w3.org/2000/svg"
+	viewBox="0 0 100 100">
+		<rect width="100" height="100" x="0" y="0" fill="none" 
+		stroke="rebeccapurple"/>
+		
+				<animateTransform
+				attributeName="transform"
+				attributeType="XML"
+				type="rotate"
+				from="0"
+				to="360"
+				dur="50s"
+				repeatCount="indefinite" />
+		</rect>
+	</svg>
+
+<svg id="svgTriangulo1" width="300" height="300" xmlns="http://www.w3.org/2000/svg" 
+	viewBox="0 0 100 100">
+		<path d="M50 1 l50 98 l-99 -1 Z" fill="none" 
+		stroke="rebeccapurple" vector-effect="non-scaling-stroke" 
+		stroke-linejoin="miter"/>
+		
+	</svg>
+
+	<main>
+    <p class="introducción">Los ficheros <span class="text-gradient">SVG</span> están compuestos por figuras geométricas. En este apartado vamos a utilizar algunas de las figuras geométricas básicas que ofreece.</p>
+
+    <h2>Viewport vs viewBox</h2>
+
+    <p>Ambos conceptos son similares, pero diferentes. El primer concepto importante a tener en cuenta en <span class="text-gradient">SVG</span> es el de <em>Viewport</em>, que  indica el tamaño del área en el que se va a visualizar el dibujo. El viewport se controla con los atributos <code>width</code> y <code>height</code>.</p>
+
+
+    <form id="frmEj1">
+      <p>Estos controles manipulan los atributos <code>width</code> y <code>height</code> del <span class="text-gradient">SVG</span> de abajo. El valor que tienen es 100, prueba a cambiar ambos a 50.</p>
+      <div>
+        <div>
+          <label for="txtWidthEj1">Width</label>
+          <input type="number" name="txtWidthEj1" id="txtWidthEj1" value="100">
+        </div>
+        
+        <div>
+          <label for="txtWidthEj1">Height</label>
+          <input type="number" name="txtHeightEj1" id="txtHeightEj1" value="100">
+        </div>
+      </div>
+    </form>
+
+    <div class="contenido-centrado">
+      <svg id="svgEj1" width="100" height="100" fill="currentcolor">
+        <circle cx="50" cy="50" r="50"/>
+      </svg>
+    </div>
+
+
+<p>Este es el código correspondiente al <span class="text-gradient">SVG</span> de arriba.</p>
+<pre>
+&lt;svg id="svgEj1" width="100" height="100" fill="currentcolor">
+  &lt;circle cx="50" cy="50" r="50"/&gt;
+&lt;/svg&gt;
+</pre>
+			
+  <p>Otro concepto importante a tener en cuenta es el de <code>viewBox</code>, que representa el tamaño del lienzo rectangular sobre el que estamos dibujando y se establece con el atributo viewBox. Si estableces un viewBox de <code>"0 0 100 100"</code>, las coordenadas que indiques en el <span class="text-gradient">SVG</span> irán referidas a ese lienzo.</p>
+
+  <p>Sin embargo, el dibujo puede ser estirado (es una de las ventajas de un <span class="text-gradient">SVG</span>) cambiando el viewport (usando los atributos <code>width</code> y <code>height</code>) como lo haríamos con una imagen. O podríamos establecer un viewBox más pequeño para ver sólo una parte del dibujo. También podemos ampliar el dibujo cambiando las coordenadas del viewBox.</p>
+
+  <p>El <code>viewBox="0 0 100 100"</code> establece el tamaño del lienzo indicando la coordenada de la esquina superior izquierda (en este caso <code>0 0</code>) y el ancho y alto (definiendo así la coordenada de la esquina inferior derecha, en este caso <code>100 100</code>).</p>
+
+  <div class="contenido-centrado">
+    <svg viewBox="0 0 100 100" width="100" height="100" fill="none">
+      <rect x="0" y="0" height="100" width="100" stroke-width="3" stroke="var(--accent)"/>
+      <text x="8" y="15" font-family="Arial" font-size="12" fill="var(--accent)">(0,0)</text>
+      <text x="42" y="92" font-family="Arial" font-size="12" fill="var(--accent)">(100,100)</text>
+      <circle cx="1" cy="1" r="7" fill="var(--hiperlink)"/>
+      <circle cx="99" cy="99" r="7" fill="var(--hiperlink)"/>
+    </svg>
+  </div>
+
+  <form id="frmEj2">
+    <p>Estos controles manipulan los atributos <code>width</code> y <code>height</code> del SVG de abajo. El valor que tienen es 100, prueba a cambiar ambos a 50 o 200.</p>
+    <div>
+      <div>
+        <label for="txtWidthEj2">Width</label>
+        <input type="number" name="txtWidthEj2" id="txtWidthEj2" value="100">
+      </div>
+      
+      <div>
+        <label for="txtWidthEj2">Height</label>
+        <input type="number" name="txtHeightEj2" id="txtHeightEj2" value="100">
+      </div>
+    </div>
+    <p>Estos controles controlan el <code>viewBox</code> del SVG de abajo. Por defecto es <code>viewBox="0 0 100 100"</code>, (coordenadas: X1 Y1 ancho alto). Prueba a cambiar tanto el ancho y alto del viewport a 50 o 200.</p>
+    <div>
+      <div>
+        <label for="txtXVBEj2">Inicio viewBox (X1)</label>
+        <input type="number" name="txtXVBEj2" id="txtXVBEj2" value="0">
+      </div>
+      
+      <div>
+        <label for="txtYVBEj2">Inicio viewBox (Y1)</label>
+        <input type="number" name="txtYVBEj2" id="txtYVBEj2" value="0">
+      </div>
+
+      
+      <div>
+        <label for="txtWidthVBEj2">Ancho viewBox</label>
+        <input type="number" name="txtWidthVBEj2" id="txtWidthVBEj2" value="100">
+      </div>
+      
+      <div>
+        <label for="txtHeightVBEj2">Fin viewBox</label>
+        <input type="number" name="txtHeightVBEj2" id="txtHeightVBEj2" value="100">
+      </div>
+    </div>
+  </form>
+
+  <div class="contenido-centrado">
+    <svg preserveAspectRatio="xMinYMid slice" id="svgEj2" viewBox="0 0 100 100" width="100" height="100" fill="currentcolor">
+      <rect id="svgEj2Fondo" x="0" y="0" width="100" height="100" fill="var(--primary)"/>
+      <circle cx="50" cy="50" r="50"/>
+    </svg>
+  </div>
+
+
+  <p>Este es el código correspondiente al <span class="text-gradient">SVG</span> de arriba.<br>
+</p>
+  
+<pre id="preEj2">
+&lt;svg id="svgEj2" viewBox="0 0 100 100"
+  preserveAspectRatio="xMinYMid slice" 
+  width="100" height="100" fill="currentcolor">
+  &lt;circle cx="50" cy="50" r="50"/&gt;
+&lt;/svg&gt;
+</pre>
+
+  <p><strong>Nota</strong>: se ha incluido un rectángulo de fondo que ocupa todo el viewBox, para poder entender mejor lo que ocurre y se ha añadido el atributo <code>preserveAspectRatio="xMinYMid slice"</code> para que no se oculte lo que supere el tamaño del viewBox.</p>
+
+  <p>Trata de modificar los valores del viewBox de manera que sólo se vea un cuarto de círculo, por ejemplo:</p>
+  <div class="contenido-centrado">
+    <svg style="margin-right: 1rem;" preserveAspectRatio="xMinYMid slice" id="svgEj2" viewBox="50 50 50 50" width="100" height="100" fill="currentcolor">
+      <rect x="0" y="0" width="100" height="100" fill="var(--primary)"/>
+      <circle cx="50" cy="50" r="50"/>
+    </svg>
+    <svg preserveAspectRatio="xMinYMid slice" id="svgEj2" viewBox="0 0 50 50" width="100" height="100" fill="currentcolor">
+      <rect x="0" y="0" width="100" height="100" fill="var(--primary)"/>
+      <circle cx="50" cy="50" r="50"/>
+    </svg>
+  </div>
+
+
+
+
+
+
+
+  <h2>Rectángulos y atributos básicos</h2>
+  <p>Para definir un rectángulo se necesitan únicamente el alto, el ancho y la posición de la esquina superior izquierda:</p>
+  <ul style="padding-left: 30pt">
+    <li><code>x</code></li>
+    <li><code>y</code></li>
+    <li><code>width</code></li>
+    <li><code>height</code></li>
+  </ul>
+
+  <p>Esto establece la posición de la esquina superior izquierda del rectángulo y el ancho y alto del mismo respectivamente.</p>
+
+
+  <p>Por ejemplo, esto definirá un rectángulo centrado azul con un borde negro de tamaño 2 centrado en el viewport.</p>
+
+<pre>
+&lt;svg width="200" height="200" xmlns="http://www.w3.org/2000/svg"&gt;
+  &lt;rect width="100" height="100" x="50" y="50" 
+    fill="blue" 
+    stroke-width="3" 
+    stroke="black"
+  /&gt;
+&lt;/svg&gt;
+</pre>
+
+  <p>Existen otros atributos propios de un rectángulo como <code>rx</code> y <code>ry</code> que definen el redondeo de las esquinas del rectángulo.</p>
+
+  <h3>Atributos básicos</h3>
+  <p>Algunos de los atributos que aparecen no son obligatorios, pero son bastante básicos:</p>
+	<ul>
+    <li><code>fill</code>: color de fondo</li>
+    <li><code>stroke</code>: color del borde</li>
+    <li><code>stroke-width</code>: ancho del borde</li>
+    <li><code>stroke-linecap="round"</code>: las líneas terminarán en una punta redonda en lugar de ser cuadrada</li>
+    <li><code>stroke-linejoin="round"</code>: indica que las líneas se unirán en una esquina redondeada en lugar de una puntiaguda.</li>
+    <li><code>stroke-dasharray="5,5"</code>: indica que se usará una línea discontinua con segmentos de 5px seguidos de 5px <em>vacíos</em>.</li>
+  </ul>
+
+  <div class="contenido-centrado">
+    <img src="/img/pasted_image011.png" alt="" title="Mozilla Contributors CC-BY-SA v2.5">
+  </div>
+
+  <p><strong>Nota:</strong> como color de fondo se puede usar <code>currentcolor</code>, que hará que el color sea el definido por CSS (o por herencia).</p>
+
+  Referencias:
+  <ul>
+    <li><a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Fills_and_Strokes">https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Fills_and_Strokes</a></li>
+
+    <li><a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-linejoin">https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-linejoin</a></li>
+    
+    <li><a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-linecap">https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-linecap</a></li>
+
+  </ul>
+
+  <form id="frmEjRect">
+    <p>Estos controles manipulan los atributos <code>width</code> y <code>height</code> del <span class="text-gradient">SVG</span> de abajo. Los valores <code>x="10"</code> e <code>y="10"</code> son fijos.</p>
+    <p>La etiqueta <code>&lt;svg&gt;</code> tiene como viewBox: <code>viewBox="0 0 100 100"</code> y tiene asignado un color de relleno, de borde y un ancho de borde de 2.</p>
+
+    <div>
+      <div>
+        <label for="txtXEjRect">X</label>
+        <input type="range" name="txtXEjRect" id="txtXEjRect" max="100" min="0" value="10">
+      </div>
+      <div>
+        <label for="txtYEjRect">Y</label>
+        <input type="range" name="txtYEjRect" id="txtYEjRect" max="100" min="0" value="10">
+      </div>
+
+      <div>
+        <label for="txtWidthEjRect">Width</label>
+        <input type="range" name="txtWidthEjRect" id="txtWidthEjRect" max="100" min="0" value="50">
+      </div>
+      
+      <div>
+        <label for="txtWidthEj1">Height</label>
+        <input type="range" name="txtHeightEjRect" id="txtHeightEjRect" max="100" min="0" value="50">
+      </div>
+    </div>
+  </form>
+
+  <div class="contenido-centrado">
+    <svg id="svgEjRectSvg" width="100" height="100" fill="var(--primary)" stroke="var(--accent)" stroke-width="2">
+      <rect id="svgEjRect" x="10" y="10" width="50" height="50"/>
+    </svg>
+  </div>
+
+  <pre id="preEjRect">
+&lt;rect
+id="svgEjRect"
+x="10"
+y="10"
+width="54"
+height="34"&gt;&lt;/rect&gt;
+    </pre>
+
+
+
+
+
+
+
+
+
+    <h2>Círculos</h2>
+    <p>Para definir un círculo se necesitan menos datos que para definir un rectángulo, basta con indicar el centro y el radio:</p>
+    <ul style="padding-left: 30pt">
+      <li><code>cx</code></li>
+      <li><code>cy</code></li>
+      <li><code>r</code></li>
+    </ul>
+
+    <p>La manera de trabajar con círculos es análoga a la utilizada con los rectángulos, así que lo mejor es pasar directamente a la acción.
+    </p>
+
+    <p class="enunciado"><strong>Ejercicio:</strong> ¿Podrías crear un círculo azul con un radio 20 y centrado en el cuadrado negro definido por el siguiente código? Sólo debes modificar el círculo, sin tocar el resto del código.<br><br>
+    Nota: El texto es editable y actualizará el <span class="text-gradient">SVG</span> de abajo automáticamente. <br>
+    Ampliación: añade al círculo un borde de tamaño 2 de color cian (cyan).</p>
+
+    <textarea id="txtEjCircle" spellcheck="false" autocapitalize="off" autocorrect="off">
+&lt;svg 
+width="200" height="200" 
+xmlns="http://www.w3.org/2000/svg"
+viewBox="0 0 100 100"&gt;
+      
+  &lt;rect x="25" y="25" width="50" height="50" fill="black"/&gt;
+  &lt;circle cx="5" cy="5" r="2" fill="red"&gt;&lt;/circle&gt;
+&lt;/svg&gt;
+</textarea>
+  
+    <div class="contenido-centrado" id="svgEjCircle"></div>
+  
+  
+
+
+<h2>Ejercicios con círculos y rectángulos</h2>
+
+<p>Intenta recrear las siguientes figuras sin mirar el código de los SVG que aparecen incrustados en la página.</p>
+
+
+<h3>Ejercicio 1: Logotipo</h3>
+
+<p><strong>Pista</strong>: Los colores usados son <code>orange</code>, <code>blue</code> y <code>white</code> y se han usado dos rectángulos y tres círculos ¿serías capaz de resolverlo con sólo dos rectángulos y un círculo?</p>
+<div class="contenido-centrado">
+<svg width="200" height="200" 
+  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <rect width="50" height="50" x="50" y="50" fill="orange"/>
+  <rect width="50" height="50" x="0" y="0" fill="blue"/>
+  <circle cx="50" cy="50" r="50" fill="blue"/>
+  <circle cx="50" cy="50" r="30" fill="white"/>
+  <circle cx="50" cy="50" r="15" fill="blue"/>
+</svg>
+</div>
+
+<textarea id="txtEjercicio1" spellcheck="false" autocapitalize="off" autocorrect="off">
+&lt;svg  
+width="200" height="200" 
+xmlns="http://www.w3.org/2000/svg"
+viewBox="0 0 100 100"&gt;
+        
+  &lt;rect x="0" y="0" width="20" height="20" fill="orange"/&gt;
+  &lt;circle cx="20" cy="20" r="20" fill="white"&gt;&lt;/circle&gt;
+&lt;/svg&gt;
+  </textarea>
+    
+  <div class="contenido-centrado" id="svgEjercicio1"></div>
+
+
+
+  <h3>Ejercicio 2: Amigo imaginario</h3>
+
+<p><strong>Pista</strong>: Los colores usados son <code>rebeccapurple</code>, <code>black</code> y <code>white</code> y se han necesitado dos rectángulos y tres círculos.</p>
+<div class="contenido-centrado">
+  <svg  width="200" height="200" 
+  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <rect width="100" height="50" x="00" y="50" fill="rebeccapurple"/>
+  <circle cx="50" cy="50" r="50" fill="rebeccapurple"/>
+  <circle cx="50" cy="30" r="15" fill="white"/>
+	<circle cx="50" cy="30" r="5" fill="black"/>
+  <rect width="70" height="5" x="15" y="55" fill="black"/>
+</svg>
+
+</div>
+
+<textarea id="txtEjercicio2" spellcheck="false" autocapitalize="off" autocorrect="off">
+&lt;svg 
+width="200" height="200" 
+xmlns="http://www.w3.org/2000/svg"
+viewBox="0 0 100 100"&gt;
+  &lt;rect x="40" y="40" width="20" height="20" fill="rebeccapurple"/&gt;
+
+&lt;/svg&gt;
+  </textarea>
+    
+  <div class="contenido-centrado" id="svgEjercicio2"></div>
+
+
+
+
+
+  <h3>Ejercicio 3: Fantasma</h3>
+
+  <p><strong>Pista</strong>: se han usado cuatro rectángulos y cinco círculos, la cabeza tiene un radio de 40 y los ojos uno de 10.</p>
+<div class="contenido-centrado">
+  <svg 
+  width="200" height="200" 
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 100 100">
+    <rect width="80" height="40" x="10" y="50" fill="red"/>
+    <circle cx="50" cy="50" r="40" fill="red"/>
+      
+      <circle cx="35" cy="30" r="10" fill="white"/>
+      <circle cx="40" cy="30" r="5" fill="black"/>
+  
+      <circle cx="70" cy="30" r="10" fill="white"/>
+      <circle cx="75" cy="30" r="5" fill="black"/>
+  
+    <rect width="20" height="10" x="10" y="90" fill="red"/>
+    <rect width="20" height="10" x="40" y="90" fill="red"/>
+    <rect width="20" height="10" x="70" y="90" fill="red"/>
+  </svg>
+</div>
+
+<textarea id="txtEjercicio3" spellcheck="false" autocapitalize="off" autocorrect="off">
+&lt;svg 
+width="200" height="200" 
+xmlns="http://www.w3.org/2000/svg"
+viewBox="0 0 100 100"&gt;
+  &lt;circle cx="50" cy="50" r="40" fill="none" stroke="red" stroke-width="1"/&gt;
+&lt;/svg&gt;
+&lt;/svg&gt;
+  </textarea>
+    
+  <div class="contenido-centrado" id="svgEjercicio3"></div>
+
+
+
+
+
+
+
+  <h2>Otras formas básicas</h2>
+  <p>Además de círculos y rectángulos, <span class="text-gradient">SVG</span> permite crear otras figuras básicas. El modo de operación es similar a los que ya hemos visto, por lo que podemos entender su funcionamiento simplemente a partir de algunos ejemplos.</p>
+
+  <ul style="padding-left: 30pt">
+    <li>Líneas</li>
+    <li>Polígonos</li>
+    <li>Polilíneas</li>
+    <li>Elipses</li>
+    <li>Texto</li>
+  </ul>
+
+  <h3>Líneas</h3>
+  <p>Se establece el punto inicial y final de la línea. En el ejemplo de abajo, además se indica que las puntas del segmento estarán redondeadas.</p>
+<pre>
+
+&lt;line x1="10" y1="10" x2="50" y2="50" 
+stroke="black" stroke-width="2" stroke-linecap="round"/&gt;
+
+</pre>
+<div class="contenido-centrado">
+<svg  
+width="200" height="200" 
+xmlns="http://www.w3.org/2000/svg"
+viewBox="0 0 100 100">
+<line x1="10" y1="10" x2="50" y2="50" 
+stroke="cyan" stroke-width="3" stroke-linecap="round"/>
+</svg>
+</div>
+
+  <h3>Polígonos</h3>
+  <p>Se basan en definir un conjunto de puntos mediante pares de coordenadas <code>x,y</code> separadas por espacios en blanco. Cada punto se unirá con el siguiente y, al ser un polígono, el último punto se unirá con el primero.</p>
+
+  <pre>
+
+&lt;polygon points="10,10 90,10 10,90 30,40" 
+fill="rebeccapurple" stroke="white"&gt;
+
+</pre>
+<div class="contenido-centrado">
+  <svg 
+  width="200" height="200" 
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 100 100">
+  
+<polygon points="10,10 90,10 10,90 30,40" fill="rebeccapurple" 
+stroke="white">
+  </svg>
+  </div>
+
+
+
+  <h3>Polilíneas</h3>
+
+  <p>Parecido al polígono, pero sin unir el último punto con el primero automáticamente (nosotros sí podremos unirlo si lo indicamos, claro).</p>
+  <p>En el ejemplo de abajo se ve una polilínea sin relleno y con relleno.</p>
+
+  <pre>
+
+&lt;polyline points="10,10 50,10 30,40" 
+fill="none" stroke="cyan" stroke-width="2"/&gt;
+
+&lt;polyline points="10,60 50,60 30,90" 
+fill="rebeccapurple" stroke="white" stroke-width="2"/&gt;
+
+</pre>
+<div class="contenido-centrado">
+  <svg 
+  width="200" height="200" 
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 100 100">
+  
+  <polyline points="10,10 50,10 30,40" 
+  fill="none" stroke="cyan" stroke-width="2" />
+
+  <polyline points="10,60 50,60 30,90" 
+  fill="rebeccapurple" stroke="white" stroke-width="2" />
+  </svg>
+  </div>
+
+
+
+
+
+  <h3>Elipses</h3>
+
+  <p>Es básicamente un círculo con dos radios, un radio horizontal <code>rx</code> y uno vertical <code>ry</code>. Si ambos radios son iguales obtendremos un círculo.</p>
+  <p>Además se usa la propiedad <code>stroke-dasharray="5,15"</code> para que el borde sea una línea punteada.</p>
+
+  <pre>
+
+&lt;ellipse cx="50" cy="20" rx="40" ry="10" 
+fill="rebeccapurple" stroke="cyan"
+stroke-dasharray="15,5" stroke-width="3"/&gt;
+
+&lt;ellipse cx="50" cy="80" rx="40" ry="10" 
+fill="none" stroke="cyan"
+stroke-dasharray="1,12" stroke-linecap="round" stroke-width="2"/&gt
+</pre>
+
+<p>La segunda elipsis (la de abajo) es similar a la primera, pero sin relleno y cambiando el espaciado entre segmentos del borde.</p>
+ 
+<div class="contenido-centrado">
+  <svg 
+  width="200" height="200" 
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 100 100">
+  
+  <ellipse cx="50" cy="20" rx="40" ry="10" 
+  fill="rebeccapurple" stroke-dasharray="15,5" stroke="cyan" stroke-width="3"/>
+  
+  <ellipse cx="50" cy="80" rx="40" ry="10" 
+  fill="none" stroke-dasharray="1,12" stroke-linecap="round" stroke="cyan" stroke-width="2"/>
+  </svg>
+
+  </div>
+
+
+
+
+  
+
+
+  <h3>Texto</h3>
+
+  <p>Sólo tenemos que indicar la coordenada de la esquina inferior izquierda (la base del texto), la tipografía y el tamaño, además del propio texto, para poder insertar letras, símbolos o emojis en nuestros <span class="text-gradient">SVG</span>.</p>
+
+  <pre>
+&lt;line x1="5"  y1="60" x2="25" y2="10" stroke="cyan" stroke-width="2"/&gt;
+&lt;line x1="15" y1="60" x2="35" y2="10" stroke="cyan" stroke-width="2"/&gt;
+&lt;line x1="25" y1="60" x2="45" y2="10" stroke="cyan" stroke-width="2"/&gt;
+  
+&lt;rect rx="3" x="0" y="25" width="100" height="20" fill="#eee"/&gt;
+
+&lt;text x="5" y="39" 
+font-family="Arial" font-size="11" 
+fill="black"&gt;Javier Mancera 🦊&lt;/text/&gt;
+
+</pre>
+
+<div class="contenido-centrado">
+  <svg viewBox="0 0 100 100" width="200" height="200" 
+  xmlns="http://www.w3.org/2000/svg">
+  <line x1="5" y1="60" x2="25" y2="10" stroke="cyan" stroke-width="2"/>
+  <line x1="15" y1="60" x2="35" y2="10" stroke="cyan" stroke-width="2"/>
+  <line x1="25" y1="60" x2="45" y2="10" stroke="cyan" stroke-width="2"/>
+  
+  <rect rx="3" x="0" y="25" width="100" height="20" fill="#eee"></rect>
+  
+  <text x="5" y="39" font-family="Arial" font-size="11" fill="black">Javier Mancera 🦊</text>
+</svg>
+  </div>
+
+
+
+
+  <h2>Ejercicios</h2>
+
+  <h3>Ejercicio 4: Estrella</h3>
+
+  <p><strong>Pista</strong>: se han dibujado algunos círculos de colores para ayudar a dibujar la estrella como en un pasatiempo de <em>une los puntos</em>. Una vez que la estrella está dibujada, basta borrar los círculos de ayuda y dibujar los ojos.</p>
+<div class="contenido-centrado">
+  <svg 
+  width="200" height="200" 
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 100 100">
+  
+  <polygon points="50,10 60,35 90,40 70,60 80,90 50,75 20,90 30,60 10,40 40,35" 
+  fill="goldenrod" stroke="goldenrod" stroke-width="2"/>
+
+  <ellipse cx="45" cy="45" rx="2" ry="5" fill="white"/>
+  <ellipse cx="55" cy="45" rx="2" ry="5" fill="white"/>
+  </svg>
+</div>
+
+<textarea id="txtEjercicio4" spellcheck="false" autocapitalize="off" autocorrect="off">
+&lt;svg 
+width="200" height="200" 
+xmlns="http://www.w3.org/2000/svg"
+viewBox="0 0 100 100"&gt;
+  
+&lt;circle cx="50" cy="10" r="2" fill="red"/&gt;
+&lt;circle cx="60" cy="35" r="2" fill="cyan"/&gt;
+&lt;circle cx="90" cy="40" r="2" fill="pink"/&gt;
+&lt;circle cx="70" cy="60" r="2" fill="blue"/&gt;
+&lt;circle cx="80" cy="90" r="2" fill="orange"/&gt;
+&lt;circle cx="50" cy="75" r="2" fill="white"/&gt;
+&lt;circle cx="20" cy="90" r="2" fill="yellow"/&gt;
+&lt;circle cx="30" cy="60" r="2" fill="purple"/&gt;
+&lt;circle cx="10" cy="40" r="2" fill="green"/&gt;
+&lt;circle cx="40" cy="35" r="2" fill="gray"/&gt;
+
+&lt;/svg&gt;
+  </textarea>
+    
+  <div class="contenido-centrado" id="svgEjercicio4"></div>
+
+
+
+
+
+  <h3>Ejercicio 5: Gráfica de líneas</h3>
+
+  <p>Intenta dibujar la gráfica de líneas que corresponde a los datos de la siguiente tabla.</p>
+  <p><strong>Pista:</strong> Recuerda que la coordenada 0,0 de la gráfica debería ser la esquina inferior izquierda, pero en el SVG será la esquina superior izquierda.</p>
+  
+<div class="contenido-centrado">
+  <table>
+  <tr>
+    <th>Y</th><th>X</th>
+  </tr>
+  <tr><td>20</td><td>20</td></tr>
+  <tr><td>40</td><td>60</td></tr>
+  <tr><td>60</td><td>80</td></tr>
+  <tr><td>80</td><td>30</td></tr>
+</table>
+</div>
+
+<div class="contenido-centrado">
+<svg 
+  width="200" height="200" 
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 100 100">
+  
+  <line x1="20" y1="80" x2="20" y2="100" 
+  stroke="rebeccapurple" stroke-width="2" stroke-linecap="round"/>
+  
+    <text x="10" y="75" 
+font-family="Arial" font-size="8" 
+fill="white">20</text/>
+
+
+  <line x1="40" y1="40" x2="40" y2="100" 
+  stroke="rebeccapurple" stroke-width="2" stroke-linecap="round"/>
+
+  <text x="30" y="35" font-family="Arial" font-size="8" 
+fill="white">60</text/>
+
+
+  <line x1="60" y1="20" x2="60" y2="100" 
+  stroke="rebeccapurple" stroke-width="2" stroke-linecap="round"/>
+  
+  <text x="60" y="15" font-family="Arial" font-size="8" 
+fill="white">80</text/>
+
+
+  <line x1="80" y1="70" x2="80" y2="100" 
+  stroke="rebeccapurple" stroke-width="2" stroke-linecap="round"/>
+
+  <text x="80" y="65" font-family="Arial" font-size="8" 
+fill="white">30</text/>
+
+  <polyline points="20,80 40,40 60,20 80,70" 
+  fill="none" stroke="cyan" stroke-width="2"/>
+  
+
+  <polyline points="0,0 0,100 100,100 100,0" 
+  fill="none" stroke="rebeccapurple" stroke-width="2"/>
+  </svg>
+</div>
+
+<textarea id="txtEjercicio5" spellcheck="false" autocapitalize="off" autocorrect="off">
+&lt;svg 
+width="200" height="200" 
+xmlns="http://www.w3.org/2000/svg"
+viewBox="0 0 100 100"&gt;
+
+
+&lt;/svg&gt;</textarea>
+    
+  <div class="contenido-centrado" id="svgEjercicio5"></div>
+
+
+
+	</main>
+
+
+</Layout>
+
+
+<style>
+form{
+  border: 1px solid var(--accent);
+  border-radius: 5px;
+  padding: 1rem;
+  margin-block: 1rem;
+}
+
+#frmEj1>div{
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+#svgCuadrado1{
+	position:absolute;
+  top: 1000px;
+  left: -150px;
+	z-index:-1;
+}
+#svgTriangulo1{
+	position:absolute;
+	z-index:-1;
+	top: 200px;
+ 	left: 50px;
+  transform: rotate(-15deg);
+}
+
+</style>
+
+<script src="../scripts/figurasBasicas.js"></script>

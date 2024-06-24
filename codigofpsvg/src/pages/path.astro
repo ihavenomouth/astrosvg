@@ -1,0 +1,540 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Navbar.astro';
+
+const enlaces= [
+	{nombre:'Inicio', url:'/'},
+  {nombre:'Inserción de SVG',url:'/insercionSVG'},
+	{nombre:'Figuras básicas',url:'/figurasBasicas'},
+  {nombre:'Animaciones',url:'/animaciones'}
+];
+
+---
+
+<Layout title="CódigoFP: los SVG">
+  <header transition:animate="slide">
+		<h1>El path en los <span class="text-gradient">SVG</span></h1>
+	</header>
+
+	<Nav enlaces={enlaces}/>
+
+
+
+	<main>
+		<p class="introducción">El elemento <code>path</code> es el más potente de las formas y figuras básicas de <span class="text-gradient">SVG</span>. Con él se pueden generar figuras compuestas de líneas rectas o curvas con una gran versatilidad.</p>
+
+		
+		<h2>Introducción</h2>
+		<p>Un elemento <code>path</code> consta de un elemento <code>d</code> en el que se indica la forma de la línea o de la curva que se quiere definir mediante un conjunto de órdenes. En el ejemplo de abajo se usa la orden <code>M</code> para <em>mover</em> el cursor y <code>C</code> para dibujar una curva.
+		</p>
+
+    <pre>
+  &lt;svg viewBox="0 0 100 100" width="200" height="200" 
+    style="border: 1px solid white" 
+    xmlns="http://www.w3.org/2000/svg" class="ejemplo"&gt;
+    
+    &lt;path d="M 10 90 
+    C 10 90, 50 -80, 90 90" 
+    fill="rebeccapurple" stroke="cyan" stroke-width="3" /&gt;
+    </pre>
+
+    <div class="contenido-centrado">
+    <svg viewBox="0 0 100 100" width="200" height="200" 
+    xmlns="http://www.w3.org/2000/svg" style="border:1px solid white">
+      <path d="
+      M 10 90 
+      C 10 90, 50 -80, 90 90" 
+      fill="rebeccapurple" stroke="cyan" stroke-width="3" />
+    </svg>
+  </div>
+          
+  <h2>Primeras órdenes</h2>
+	<svg id="svgCuadrado1" width="400" height="400" xmlns="http://www.w3.org/2000/svg"
+	viewBox="0 0 100 100">
+		<rect width="100" height="100" x="0" y="0" fill="none" 
+		stroke="rebeccapurple"/>
+		
+				<animateTransform
+				attributeName="transform"
+				attributeType="XML"
+				type="rotate"
+				from="0"
+				to="360"
+				dur="50s"
+				repeatCount="indefinite" />
+		</rect>
+	</svg>
+  <p>Veamos algunas órdenes que puede cumplir la ruta:</p>
+	<ul>
+    <li><code>M</code> (moveto X Y) mueve el lápiz a la coordenada sin trazar.</li>
+    <li><code>L</code> (lineto X Y) traza una línea recta desde la posición actual a una nueva posición</li>
+    <li><code>H</code> y <code>V</code> (Horizontal X, Vertical V) trazan una línea horizontal o vertical hasta la coordenada indicada</li>
+    <li>También están sus variantes relativas <code>m</code>, <code>l</code>, <code>h</code> y <code>v</code></li>
+    <li><code>Z</code> o <code>z</code> cierra el elemento <code>path</code> trazando una línea desde la posición actual hasta el punto inicial (no hay diferencia entre usar la versión en mayúsculas o en minúsculas)</li>
+  </ul>
+
+  <p>Por ejemplo, abajo se ha generado una línea diagonal.</p>
+
+  <div class="contenido-centrado">
+  <svg viewBox="0 0 100 100" width="200" height="200" 
+  xmlns="http://www.w3.org/2000/svg">
+  <path d="M 10 90 L 90 10" fill="none" 
+  stroke="purple" stroke-width="2" />
+</svg>
+  </div>
+
+  <p class="enunciado"><strong>Ejercicio 1:</strong> ¿Podrías crear un triángulo rectángulo  modificando el código siguiente? Los requisitos son: <br>
+  - sólo debes añadir órdenes al path sin eliminar lo que ya hay<br>
+  - crear la línea que falta usando órdenes relativas (las minúsculas).<br>
+  - la última orden tiene que ser una <code>z</code>.<br><br>
+  Nota: El texto es editable y actualizará el <span class="text-gradient">SVG</span> de abajo automáticamente.</p>
+
+    <textarea id="txtEjPath1" spellcheck="false" autocapitalize="off" autocorrect="off">
+&lt;svg viewBox="0 0 100 100" 
+width="200" height="200" 
+xmlns="http://www.w3.org/2000/svg"&gt;
+  &lt;path d="M 10 90 L 90 10" 
+  fill="none" stroke="purple" stroke-width="2" /&gt;
+&lt;/svg&gt;
+</textarea>
+  
+    <div class="contenido-centrado" id="svgEjPath1"></div>
+
+
+
+    <p class="enunciado"><strong>Ejercicio 2:</strong> ¿Podrías crear una flecha como la de abajo usando exclusivamente órdenes absolutas (las de las letras mayúsculas)?<br><br>
+    Nota: Se ha indicado que las líneas se unen con una unión redonda (<code>stroke-linejoin="round"</code>) para mejorar el resultado.
+    </p>
+    <div class="contenido-centrado">
+    <svg viewBox="0 0 100 100" width="200" height="200" style="border:1px solid white"
+    xmlns="http://www.w3.org/2000/svg">
+    <path d="M 10 90 L 90 10 H 50 M 90 10 V 50" fill="none" 
+    stroke="cyan" stroke-width="2" stroke-linejoin="round"/>
+  </svg>
+</div>
+        <textarea id="txtEjPath2" spellcheck="false" autocapitalize="off" autocorrect="off">
+    &lt;svg viewBox="0 0 100 100" 
+    width="200" height="200" 
+    xmlns="http://www.w3.org/2000/svg"&gt;
+      &lt;path d="M 10 90 L 90 10" 
+      fill="none" stroke="cyan" stroke-width="2" stroke-linejoin="round" /&gt;
+    &lt;/svg&gt;
+    </textarea>
+      
+        <div class="contenido-centrado" id="svgEjPath2"></div>
+
+
+
+  <p class="enunciado"><strong>Ejercicio 3:</strong> Intenta recrear la letra A de abajo usando como referencia los dos círculos amarillos y órdenes relativas.<br><br>
+    Nota: Se ha indicado que las líneas se unen con una unión redonda (<code>stroke-linejoin="round"</code>) para mejorar el resultado.
+    </p>
+    <div class="contenido-centrado">
+    <svg viewBox="0 0 100 100" width="200" height="200" style="border:1px solid white"
+          xmlns="http://www.w3.org/2000/svg">
+          <path d="M20 80
+          l30 -60
+          l30 60
+          M20 50
+          l60 0"
+         fill="none" stroke="green" stroke-width="6" 
+         stroke-linecap="round"  stroke-linejoin="round"/>
+          <circle r="1" cx="20" cy="80" 
+          fill="yellow" stroke-width="1" stroke="yellow"/>
+          <circle r="1" cx="20" cy="50" 
+          fill="yellow" stroke-width="1" stroke="yellow"/>
+        
+        </svg>
+      </div>
+              <textarea id="txtEjPath3" spellcheck="false" autocapitalize="off" autocorrect="off">
+&lt;svg viewBox="0 0 100 100" width="200" height="200" 
+xmlns="http://www.w3.org/2000/svg"&gt;
+  &lt;path d="M20 80   M20 50"
+    fill="none" stroke="green" stroke-width="6" 
+    stroke-linecap="round"  stroke-linejoin="round"/&gt
+  &lt;circle r="1" cx="20" cy="80" fill="yellow" stroke-width="1" stroke="yellow"/&gt
+  &lt;circle r="1" cx="20" cy="50" fill="yellow" stroke-width="1" stroke="yellow"/&gt
+&lt;/svg&gt;
+          </textarea>
+            
+              <div class="contenido-centrado" id="svgEjPath3"></div>
+
+
+
+
+
+
+
+
+
+
+  <p class="enunciado"><strong>Ejercicio 4:</strong> Intenta recrear la recrea la bandera de Suiza. Tendrás que dibujar un rectángulo rojo usando <code>&lt;rect/&gt;</code> y un <code>&lt;path/&gt;</code> para recrear la cruz encima.
+  </p>
+  </div>
+  <textarea id="txtEjPath4" spellcheck="false" autocapitalize="off" autocorrect="off">
+&lt;svg viewBox="0 0 200 100" width="400" height="200" style="border:1px solid white"
+xmlns="http://www.w3.org/2000/svg"&gt;
+&lt;rect x="0" y="0" width="100" height="100"
+fill="red" /&gt
+&lt;/svg&gt;
+  </textarea>
+                        
+  <div class="contenido-centrado" id="svgEjPath4"></div>
+
+
+  <h2>Curvas de Bezier</h2>
+
+  <p>Según indica la <a href="https://es.wikipedia.org/wiki/Curva_de_B%C3%A9zier">wikipedia</a> as curvas de bezier son <em>un sistema que se desarrolló hacia los años 1960 para el trazado de dibujos técnicos[...] que permite describir curvas</em>. Son ampliamente utilizadas en dibujo técnico, CAD (diseño asistido por computador) y gráficos vectoriales de todo tipo.</p>
+
+  <p>Las órdenes que podemos usar para crerlas son las siguientes</p>
+
+	<ul>
+    <li><code>Q</code> (Quadratic Bezier curve x1 y1 xfinal yfinal) traza una curva de Bezier cuadrática desde la posición actual hasta la xfinal yfinal usando como punto de control x1 y1 (la curva no atravesará el punto, pero se acercará a él). También existe <code>q</code>, que indica desplazamientos relativos</li>
+    <li><code>C</code> (Bezier curve x1 y1 x2 y2 xfinal yfinal) traza una curva de bezier desde la posición actual hasta la xfinal yfinal, usando los puntos x1 y1 y x2 y2 como puntos de control de la curva. También existe <code>c</code></li>
+    <li><code>S</code> (Smooth Bezier curve x2 y2 xfinal yfinal) se usa en combinación a las C o c y traza una curva de bezier simple desde la posición actual hasta la xfinal yfinal usando como primer punto de control el reflejo de la curva C o c anterior y como segundo punto de control  x2 y2 (la curva no atravesará el punto, pero se acercará a él). También existe <code>s</code></li>
+  </ul>
+
+  <p>Nota: los desplazamientos relativos son siempre desde el punto inicial.</p>
+
+
+  <h3>Orden Q y Orden T</h3>
+  <p>Imagina que tenemos dos puntos que se encuentran en la posición 20 80 y la 80 80 respectivamente (en un viewBox de 100×100) y queremos unirlos con una curva. Partimos de la situación de abajo.</p>
+  <div class="contenido-centrado">
+  <svg width="200" height="200" xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 100 100" style="border:1px solid white">
+  <circle cx="20" cy="80" r="2" fill="red"/>
+  <circle cx="80" cy="80" r="2" fill="red"/>
+  </svg>
+  </div>  
+  <p>Para unirlas usaremos una curva de Bezier creada con una <code>Q</code>. Estas curvas de Bezier se caracterizan por tener un único punto de control de la curva, de manera que modificándolo, podremos modificar el aspecto de la curva. 
+  <br>La curva que tendremos que crear tendrá el siguiente aspecto.</p>
+<pre>
+&lt;path d="M 20 80 Q x-puntocontrol y-puntocontrol 80 80" 
+stroke="navy" stroke-width="1" fill="none"/&gt;
+</pre>
+
+<p>Variando los valores de <code>x-puntocontrol</code> e <code>y-puntocontrol</code> cambiamos el punto de control de la curva. La curva <strong>no pasará</strong> por ese punto de control, pero sí se verá afectada por su posición.</p>
+
+
+
+<form id="frmEjCurvaQ">
+  <p>Estos controles manipulan los atributos <code>X</code> e <code>Y</code> del punto de control de la curva <code>Q</code> del <span class="text-gradient">SVG</span> de abajo. Para que se aprecie, el punto de control se ha dibujado en amarillo.</p>
+
+  <div>
+    <div>
+      <label for="txtXEjQ">X</label>
+      <input type="range" name="txtXEjQ" id="txtXEjQ" max="100" min="0" value="50">
+    </div>
+    <div>
+      <label for="txtYEjQ">Y</label>
+      <input type="range" name="txtYEjQ" id="txtYEjQ" max="100" min="0" value="20">
+    </div>
+    <div>
+      <label for="txtYEjQ">Mostrar líneas</label>
+      <input type="checkbox" name="txtLineasEjQ" id="txtLineasEjQ">
+    </div>
+
+  </div>
+</form>
+
+<div class="contenido-centrado">
+  <svg width="200" height="200" xmlns="http://www.w3.org/2000/svg" id="svgEjCurvaQ"
+  viewBox="0 0 100 100" style="border:1px solid white">
+  
+  <line x1="20" y1="80" x2="50" y2="20" stroke="none" stroke-dasharray="2,3" />
+  <line x1="50" y1="20" x2="80" y2="80" stroke="none" stroke-dasharray="2,3" />
+
+  <path id="svgEjCurvaQQ" d="M 20 80 Q 50 20 80 80"
+  fill="none" stroke="purple" stroke-width="3" 
+  stroke-linecap="round"  stroke-linejoin="round"/>
+  <circle cx="20" cy="80" r="2" fill="red"/>
+  <circle cx="80" cy="80" r="2" fill="red"/>
+  <circle cx="50" cy="20" r="2" fill="yellow" id="svgEjCurvaQCircle"/>
+  </svg>
+</div>
+
+<pre id="preEjCurvaQ">
+&lt;rect
+id="svgEjCurvaQ"
+x="10"
+y="10"
+width="54"
+height="34"&gt;&lt;/rect&gt;
+  </pre>
+
+  <p>Podemos continuar la curva con otras curvas simplemente añadiendo órdenes <code>Q</code>, pero también podemos usar la orden <code>T</code> para construir una curva extendida cuyo punto de control sea un reflejo del anterior. Fíjate bien en los ejemplos de abajo y sus resultados.</p>
+
+  <p>En este ejemplo se usa una <code>Q</code> seguida de otra <code>Q</code> (los puntos de control se han dibujado en amarillo y lima respectivamente).</p>
+  <pre>d="M 20 80 Q 35 20 50 80 Q 65 20 80 80"</pre>
+  <div class="contenido-centrado">
+  <svg width="200" height="200" xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 100 100" style="border:1px solid white">
+    <path id="svgEjCurvaQQ" d="M 20 80 Q 35 20 50 80 Q 65 20 80 80" 
+    fill="none" stroke="purple" stroke-width="3" 
+    stroke-linecap="round"  stroke-linejoin="round"/>
+    <circle cx="20" cy="80" r="2" fill="red"/>
+    <circle cx="80" cy="80" r="2" fill="red"/>
+    <circle cx="35" cy="20" r="2" fill="yellow"/>
+    <circle cx="65" cy="20" r="2" fill="lime"/>
+    </svg>
+  </div>
+
+  <p>En este otro ejemplo se usa una <code>Q</code> seguida de <code>T</code>, cuyo punto de control (en lima) será un reflejo del punto de control de la anterior (en amarillo) y, por tanto, sólo necesita que le indiquemos el punto final. Podemos trazar una línea que vaya desde un punto de control al otro y que será tangente al final de la primera curva y al principio de la segunda curva.</p>
+  <pre>d="M 20 50 Q 35 20 50 50 T 80 50"</pre>
+  <div class="contenido-centrado">
+  <svg width="200" height="200" xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 100 100" style="border:1px solid white">
+    <line x1="35" y1="20" x2="65" y2="80" stroke="white" stroke-dasharray="2,3" />
+  <path id="svgEjCurvaQQ" d="M 20 50 Q 35 20 50 50 T 80 50" 
+    fill="none" stroke="purple" stroke-width="3" 
+    stroke-linecap="round"  stroke-linejoin="round"/>
+    <circle cx="20" cy="50" r="2" fill="red"/>
+    <circle cx="80" cy="50" r="2" fill="red"/>
+    <circle cx="35" cy="20" r="2" fill="yellow"/>
+    <circle cx="65" cy="80" r="2" fill="lime"/>
+    </svg>
+  </div>
+
+
+  <h3>Orden C y Orden S</h3>
+  <p>La diferencia que existe entre la orden <code>Q</code> y la orden <code>C</code> es que la curva que creamos con <code>C</code> tiene ahora <strong>dos puntos de control</strong> en lugar de sólo uno. Esto las convierte en curvas más complejas de crear, pero también más versátiles.</p>
+
+  <p>Si partimos del punto de partida del apartado anterior (dos puntos que queremos unir con una curva), la curva que nosotros querremos crear tendrá esta forma.</p>
+<pre>
+  &lt;path d="M 20 60 C xPuntoControl1 yPuntoControl1 xPuntoControl2 yPuntoControl2 80 60" 
+  stroke="navy" stroke-width="1" fill="none"/&gt;
+</pre>
+
+<p>Los puntos inicial y final son conocidos (20 80 y 80 80) por lo que tenemos que movernos al primero con una M y terminar en el final. Lo que tenemos que decidir son los puntos de control. </p>
+<p>Si los puntos que indicamos son  20 80 y 80 80 la curva que se trazará será en realidad una línea recta que une los puntos inicial y final. Variando esos valores, obtendremos curvas diferentes. </p>
+
+
+<form id="frmEjCurvaC">
+  <p>Estos controles manipulan los atributos <code>X</code> e <code>Y</code> de los puntos de control de la curva <code>C</code> del <span class="text-gradient">SVG</span> de abajo. Para que se aprecien, los puntos de control se han dibujado en amarillo y lima.</p>
+
+  <div>
+    <div>
+      <label for="txtXEjC">X1</label>
+      <input type="range" name="txtXEjC" id="txtXEjC" max="100" min="0" value="40">
+    </div>
+    <div>
+      <label for="txtYEjC">Y1</label>
+      <input type="range" name="txtYEjC" id="txtYEjC" max="100" min="0" value="20">
+    </div>
+    <div>
+      <label for="txtXEjC2">X2</label>
+      <input type="range" name="txtXEjC2" id="txtXEjC2" max="100" min="0" value="60">
+    </div>
+    <div>
+      <label for="txtYEjC2">Y2</label>
+      <input type="range" name="txtYEjC2" id="txtYEjC2" max="100" min="0" value="20">
+    </div>
+    <div>
+      <label for="txtYEjC">Mostrar líneas</label>
+      <input type="checkbox" name="txtLineasEjC" id="txtLineasEjC">
+    </div>
+
+  </div>
+</form>
+
+<div class="contenido-centrado">
+  <svg width="200" height="200" xmlns="http://www.w3.org/2000/svg" id="svgEjCurvaC"
+  viewBox="0 0 100 100" style="border:1px solid white">
+  
+  <line x1="20" y1="60" x2="50" y2="20" stroke="none" stroke-dasharray="2,3" />
+  <line x1="50" y1="20" x2="80" y2="60" stroke="none" stroke-dasharray="2,3" />
+
+  <path d="M 20 60 C 40 20 60 20 80 60" id="svgEjCurvaCC" 
+  fill="none" stroke="purple" stroke-width="3" 
+  stroke-linecap="round"  stroke-linejoin="round"/>
+  <circle cx="20" cy="60" r="2" fill="red"/>
+  <circle cx="80" cy="60" r="2" fill="red"/>
+  <circle cx="40" cy="20" r="2" fill="yellow" id="svgEjCurvaCCircle1"/>
+  <circle cx="60" cy="20" r="2" fill="lime" id="svgEjCurvaCCircle2"/>
+  </svg>
+</div>
+
+<pre id="preEjCurvaC">
+&lt;rect
+id="svgEjCurvaC"
+x="10"
+y="10"
+width="54"
+height="34"&gt;&lt;/rect&gt;
+  </pre>
+
+
+  <p>De manera análoga a lo que ocurría con <code>T</code>, con la orden <code>S</code> podemos crear curvas cuyo primer punto de control sea un reflejo del último punto de control de la curva <code>C</code> anterior.</p>
+
+  <h2>Ejercicios de curvas</h2>
+
+  <h3>Ejercicio 1: Corazón</h3>
+  <p class="enunciado"><strong>Ejercicio 1:</strong> ¿Podrías dibujar un corazón teniendo como referencia las posiciones de los círculos que se indican abajo?</p>
+
+  <div class="contenido-centrado">
+    <svg width="200" height="200" xmlns="http://www.w3.org/2000/svg" style="border:1px solid white"
+        viewBox="0 0 100 100">
+          <path d="
+          M 20 30 
+          S 20 0  50 30
+          Q 80 0  80 30
+          Q 80 50 50 80
+          Q 20 50 20 30" 
+          stroke="salmon" stroke-width="5" 
+          fill="red" stroke-linejoin="round"/>
+  </svg>
+ </div>
+
+
+  
+      <textarea id="txtEjPathCurvas1" spellcheck="false" autocapitalize="off" autocorrect="off">
+  &lt;svg viewBox="0 0 100 100" 
+  width="200" height="200" 
+  xmlns="http://www.w3.org/2000/svg"&gt;
+
+  &lt;circle cx="20" cy="30" r="2" fill="red"/&gt;
+  &lt;circle cx="80" cy="30" r="2" fill="red"/&gt;
+  &lt;circle cx="50" cy="30" r="2" fill="magenta"/&gt;
+  &lt;circle cx="50" cy="80" r="2" fill="orange"/&gt;
+  &lt;path d="M 20 30" 
+  stroke="salmon" stroke-width="5" 
+  fill="red" stroke-linejoin="round"/&gt;
+  &lt;/svg&gt;
+  </textarea>
+    
+  <div class="contenido-centrado" id="svgEjPathCurvas1"></div>
+
+
+  <h3>Ejercicio 2: Auriculares</h3>
+  <p class="enunciado"><strong>Ejercicio 2:</strong> ¿Podrías dibujar los auriculares de abajo? En esta ocasión no se proporcionan puntos de referencia y, por supuesto, hay varias maneras de resolverlo.<br>
+  <br>
+  Nota: el color usado es <code>deeppink</code>.</p>
+
+  <div class="contenido-centrado">
+  <svg width="200" height="200" xmlns="http://www.w3.org/2000/svg" style="border:1px solid white"
+    viewBox="0 0 100 100">
+    <rect width="20" rx="5" ry="5" height="20" x="10" y="60" fill="deeppink" />
+    <rect width="20" rx="5" ry="5" height="20" x="70" y="60" fill="deeppink"/>
+  
+    <circle cx="20" cy="75" r="10" fill="deeppink"/>
+    <circle cx="80" cy="75" r="10" fill="deeppink"/>
+  
+    <path d="M 13 67 C 10 0 90 0 87 67" 
+    stroke="deeppink" stroke-width="6" fill="none"/>
+        
+  </svg>
+  </div>
+    
+    
+      
+  <textarea id="txtEjPathCurvas2" spellcheck="false" autocapitalize="off" autocorrect="off">
+  &lt;svg viewBox="0 0 100 100" style="border:1px solid white;"
+  width="200" height="200" 
+  xmlns="http://www.w3.org/2000/svg"&gt;
+
+  &lt;circle cx="20" cy="75" r="10" fill="deeppink"/&gt;
+  &lt;circle cx="80" cy="75" r="10" fill="deeppink"/&gt;
+  &lt;/svg&gt;
+  </textarea>
+        
+  <div class="contenido-centrado" id="svgEjPathCurvas2"></div>
+
+
+  <h1>Clipping</h1>
+  <p>En ocasiones necesitaremos quitar parte del contenido de alguna forma de nuestro <span class="text-gradient">SVG</span>.<br>
+  Por ejemplo, mira la figura siguiente. Imagina que es el logotipo que hemos diseñoado para una empresa japonesa. Es evidente que está formada por un círculo y tres líneas. Sin embargo, el círculo no se ve completo, sino que está <em>cortado</em> por abajo.</p>
+  <div class="contenido-centrado" id="svgEjPathCurvas2">
+    <svg viewBox="0 0 100 100" width="200" height="200">
+      <defs>
+        <clipPath id="corta-abajo">
+          <rect x="0" y="0"   width="200"  height="70" />
+        </clipPath>
+      </defs>
+    
+      <circle cx="50" cy="50" r="30" fill="red"
+      clip-path="url(#corta-abajo)" />
+      
+      <line x1="10" y1="70" x2="90" y2="70" 
+      stroke="red" stroke-width="3"/>
+      <line x1="15" y1="75" x2="85" y2="75" 
+      stroke="red" stroke-width="3"/>
+      <line x1="20" y1="80" x2="80" y2="80" 
+      stroke="red" stroke-width="3"/>
+    </svg>
+    
+  </div>
+
+  <p>Para comenzar a crear nuestro El punto de partida podría ser este:</p>
+  <div class="contenido-centrado" id="svgEjPathCurvas2">
+    <svg viewBox="0 0 100 100" width="200" height="200">
+      <circle cx="50" cy="50" r="30" fill="red" />
+      
+      <line x1="10" y1="70" x2="90" y2="70" 
+      stroke="red" stroke-width="3"/>
+      <line x1="15" y1="75" x2="85" y2="75" 
+      stroke="red" stroke-width="3"/>
+      <line x1="20" y1="80" x2="80" y2="80" 
+      stroke="red" stroke-width="3"/>
+    </svg>
+  </div>
+
+  <p>Pero cómo conseguimos el corte en el círculo que se ve en el <span class="text-gradient">SVG</span>? Para ello usaremos la etiqueta <code>clipPath</code> a la que le asignaremos un <code>id</code> y luego lo aplicaremos al círculo.</p>
+
+  <div class="contenido-centrado" id="svgEjPathCurvas2">
+  <pre>  
+    &lt;defs&gt;
+      &lt;clipPath id="corta-abajo"&gt;
+        &lt;rect x="0" y="0"   width="200"  height="70" /&gt;
+      &lt;/clipPath&gt;
+    &lt;/defs&gt;
+  </pre>
+  </div>
+
+  <p>En el código de arriba se puede ver que el <code>clipPath</code> queda definido por un rectángulo, pero podría ser un círculo o cualquier otra forma.</p>
+  <p>Una vez definido, lo únoco que resta es utilizarlo en el atributo <code>clip-path</code> del <code>&lt;circle&gt;</code>, tal y como se ve abajo.</p>
+
+  <pre>
+    &lt;svg viewBox="0 0 100 100"&gt;
+      &lt;defs&gt;
+        &lt;clipPath id="corta-abajo"&gt;
+          &lt;rect x="0" y="0" width="200" height="70" /&gt;
+        &lt;/clipPath&gt;
+      &lt;/defs&gt;
+    
+      &lt;circle cx="50" cy="50" r="30" fill="red"
+      clip-path="url(#corta-abajo)" /&gt;
+      
+      &lt;line x1="10" y1="70" x2="90" y2="70" 
+      stroke="red" stroke-width="3"/&gt;
+      &lt;line x1="15" y1="75" x2="85" y2="75" 
+      stroke="red" stroke-width="3"/&gt;
+      &lt;line x1="20" y1="80" x2="80" y2="80" 
+      stroke="red" stroke-width="3"/&gt;
+    &lt;/svg&gt;
+  </pre>
+
+
+
+  <p>Enlaces relacionados:</p>
+  <ul>
+    <li><a href="https://css-tricks.com/lets-create-an-image-pop-out-effect-with-svg-clip-path/">Let's create an image pop-out effect with SVG clip path</a></li>
+    <li><a href="https://caniuse.com/mdn-svg_elements_clippath">Can I use... clipPath</a></li>
+    <li><a href="https://vanseodesign.com/web-design/svg-clipping-path-examples-1/">SVG Clipping Path Examples — Using Paths And Text</a></li>
+    <li><a href="https://codepen.io/ladybenko/pen/wdNZKR">Codepen con un efecto mezclando CSS clip-path y un SVG</a></li>
+  </ul>
+
+</Layout>
+<style>
+form{
+  border: 1px solid var(--accent);
+  border-radius: 5px;
+  padding: 1rem;
+  margin-block: 1rem;
+}
+#svgCuadrado1{
+	position:absolute;
+  top: 1000px;
+  left: -150px;
+	z-index:-1;
+}
+</style>
+<script src="../scripts/path.js"></script>

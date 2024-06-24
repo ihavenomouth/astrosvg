@@ -1,0 +1,407 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Navbar.astro';
+
+const enlaces= [
+	{nombre:'Inicio', url:'/'},
+	{nombre:'Inserción de SVG',url:'/insercionSVG'},
+	{nombre:'Figuras básicas',url:'/figurasBasicas'},
+	{nombre:'PATH',url:'/path'},
+];
+
+---
+
+<Layout title="CódigoFP: los SVG">
+  <header transition:animate="slide">
+		<h1>Crear <span class="text-gradient">SVG</span> animados</h1>
+	</header>
+
+	<Nav enlaces={enlaces}/>
+
+	<svg id="svgCuadrado1" width="400" height="400" xmlns="http://www.w3.org/2000/svg"
+	viewBox="0 0 100 100">
+		<rect width="100" height="100" x="0" y="0" fill="none" 
+		stroke="rebeccapurple"/>
+		
+				<animateTransform
+				attributeName="transform"
+				attributeType="XML"
+				type="rotate"
+				from="0"
+				to="360"
+				dur="50s"
+				repeatCount="indefinite" />
+		</rect>
+	</svg>
+
+	<svg id="svgTriangulo1" width="700" height="700" xmlns="http://www.w3.org/2000/svg" 
+	viewBox="0 0 100 100">
+		<path d="M50 1 l50 98 l-99 -1 Z" fill="none" 
+		stroke="rebeccapurple" vector-effect="non-scaling-stroke" 
+		stroke-linejoin="miter"/>
+		
+	</svg>
+
+	<main>
+		<p class="introducción">Los <span class="text-gradient">SVG</span> son ideales para crear animaciones porque pueden ser estirados, modificados y comprimidos sin pérdida de calidad.</p>
+
+		<p>Los <span class="text-gradient">SVG</span>, como cualquier otra etiqueta HTML, pueden ser animados desde CSS, pero lo que quizás no sabías es que también puedes animarlos desde dentro del propio <span class="text-gradient">SVG</span>.</p>
+
+		<p>Por ejemplo, mira la división de abajo (que podría ser una cabecera perfectamente) en la que mediante CSS se ha definido una imagen de fondo llamada <code>animado.svg</code>.</p>
+
+		<div class="animado">
+      <h1>Usando un SVG animado</h1>
+    </div>
+
+		<h2>Explicación</h2>
+
+		<p>Los ficheros <span class="text-gradient">SVG</span> son ficheros XML que describen formas geométricas y sus relaciones. Veamos el contenido del fichero de la animación por partes.</p>
+
+		<h3>La cabecera del fichero</h3>
+		<pre>
+&lt;svg width="640" height="480" viewBox="0 0 640 480" 
+xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"&gt;
+  &lt;style type="text/css"&gt;
+    circle &#123; 
+      fill: rgba(250,195,187,0.651); 
+    &#125; 
+  &lt;/style>
+...
+&lt;/svg&gt;
+		</pre>
+		
+		<p>La cabecera indica simplemente el <code>viewBox</code> del <span class="text-gradient">SVG</span>, cualquier coordenada que aparezca en el resto del fichero hará referencia al rectángulo que define (no a la pantalla o a la ventana o al elemento en el que se encuentre).</p>
+
+		<p>También se declara el estilo que tendrán las formas que van a aparecer, como son comunes se hace referencia a la etiqueta circle de una manera muy similar a como hacemos en CSS.</p>
+		
+		<p>Vemos que los círculos tendrán por defecto un color rosado translúcido que combinará con el degradado de fondo elegido.</p>
+		
+		<h2>Los círculos</h2>
+	
+		<p>Los círculos en <span class="text-gradient">SVG</span> son formas muy sencillas geométricamente hablando, sólo necesitan un centro y un radio.</p>
+
+		<pre>
+&lt;circle cx="55.2595" cy="473.6155" r="0.9757" fill-opacity="0" /&gt;
+		</pre>
+
+		<p>En el ejemplo de arriba se indican esos tres atributos y uno extra de opacidad.</p>
+
+		<h2>La animación</h2>
+		
+		<p>Algunas de las propiedades de los <span class="text-gradient">SVG</span> pueden ser animadas, en este caso se animan tanto las coordenadas como el radio y la opacidad. Veamos uno de los círculos de ejemplo.</p>
+		<pre>
+&lt;circle cx="331.8123" cy="303.8262" r="0.8658" fill-opacity="1"&gt
+
+  &ltanimate attributeName="cx" dur="5s" repeatCount="indefinite" 
+  values="331.8123;332.4542;333.1698;333.9726;334.8798;335.9128;337.1;338.4787;340.0991;342.0311;344.3739;347.2744;350.9584;355.793;362.4171;362.4171;362.4171;362.4171;362.4171;362.4171;362.4171" /&gt
+
+  &ltanimate attributeName="cy" dur="5s" repeatCount="indefinite" 
+  values="303.8262;307.2944;311.1611;315.4993;320.4007;325.9828;332.3977;339.847;348.6029;359.042;371.7013;387.3735;407.2795;433.4027;469.1949;469.1949;469.1949;469.1949;469.1949;469.1949;469.1949" /&gt
+
+  &ltanimate attributeName="r" dur="5s" repeatCount="indefinite" 
+  values="0.8658;0.9129;0.9653;1.0242;1.0907;1.1664;1.2534;1.3545;1.4732;1.6148;1.7866;1.9992;2.2692;2.6236;3.1091;3.1091;3.1091;3.1091;3.1091;3.1091;3.1091" /&gt
+
+  &ltanimate attributeName="fill-opacity" dur="5s" repeatCount="indefinite" 
+  values="1;1;1;1;1;1;1;1;1;1;1;1;1;1;0;0;0;0;0;0;0" /&gt
+
+&lt/circle&gt 
+		</pre>
+
+		<p>En la etiqueta <code>&lt;animate&gt;</code> se indica el atributo que se va a animar (aquel cuyo valor va a cambiar durante la animación), la duración y el número de veces que se va a realizar la animación.</p>
+
+		<p>Finalmente, aparecen los valores por los que va a pasar el atributo elegido. </p>
+
+		<p>En el ejemplo de arriba aparecen 21 valores con números con muchos decimales, lo que indica que fueron creados por alguna herramienta y no a mano. Un ejemplo más sencillo es el de abajo.</p>
+
+		<pre>
+&ltcircle cx="320" cy="220" r="5" fill-opacity="1"&gt
+  &ltanimate attributeName="cx" dur="5s" repeatCount="indefinite" values="320;120" /&gt
+  &ltanimate attributeName="cy" dur="5s" repeatCount="indefinite" values="220;120" /&gt
+  &ltanimate attributeName="r" dur="5s" repeatCount="indefinite" values="5;20;12;1" /&gt
+  &ltanimate attributeName="fill-opacity" dur="5s" repeatCount="indefinite" values="1;0" /&gt
+&lt/circle&gt
+		</pre>
+		
+		<p>En este nuevo ejemplo se ve cómo tenemos un círculo que se moverá hacia la izquierda y arriba durante <code>5</code> segundos y en ese movimiento el radio pasará de ser <code>5</code> a <code>20</code>, luego a <code>12</code> y finalmente <code>1</code> (en este punto la opacidad será <code>0</code> por lo que veremos cómo se desvanece).</p>
+
+    <div class="contenido-centrado">
+			<svg viewBox="0 0 640 480" width="320" height="240" 
+			xmlns="http://www.w3.org/2000/svg" style="border:1px solid white">
+			<style type="text/css">
+				circle { 
+					fill: rgba(250,195,187,0.651); 
+				} 
+			</style>
+
+			<circle cx="320" cy="220" r="5" fill-opacity="1">
+				<animate attributeName="cx" dur="5s" repeatCount="indefinite" values="320;120" />
+				<animate attributeName="cy" dur="5s" repeatCount="indefinite" values="220;120" />
+				<animate attributeName="r" dur="5s" repeatCount="indefinite" values="5;20;12;1" />
+				<animate attributeName="fill-opacity" dur="5s" repeatCount="indefinite" values="1;0" />
+			</circle>
+			</svg>
+	</div>
+
+	<br>
+
+
+
+
+
+
+	<header>
+		<h1>Crear <span class="text-gradient">SVG</span> animados (II)</h1>
+	</header>
+	<h2>Efecto</h2>
+	<p>Queremos conseguir que el SVG se <em>dibuje</em> poco a poco en la pantalla.</p>
+
+	<div class="contenido-centrado">
+		<svg id="svg1" viewBox="0 0 100 100"
+		width="200" height="200" xmlns="http://www.w3.org/2000/svg">
+		
+		<path class="path-animado" d="M 10 35
+		V 10
+		H 90 
+		L 10 90
+		H 90
+		V 65"
+		 
+		stroke-width="5" stroke-linejoin="round" stroke-linecap="round" stroke="currentcolor" fill="none"/>
+		</svg>
+	</div>
+
+	<br>
+	<button id="btnRepetirAnim1">Repetir animación</button>
+	
+	<p>La imagen SVG de arriba corresponde al código que aparece a continuación.</p>
+<pre>
+&lt;svg id="svg1" viewBox="0 0 100 100"
+width="200" height="200" xmlns="http://www.w3.org/2000/svg"&gt;
+
+&lt;path class="path-animado" 
+d="M 10 35 V 10
+H 90 
+L 10 90
+H 90
+V 65"
+stroke-width="5" 
+stroke-linejoin="round" stroke-linecap="round" 
+stroke="currentcolor" 
+fill="none"/&gt;
+&lt;/svg&gt;
+</pre>
+
+<p>Aspectos a destacar: </p>
+<ul>
+	<li>El path que contiene tiene la clase <code>path-animado</code> que usaremos para la animación.</li>
+	<li>La propiedad <code>stroke="currentcolor"</code> hará que el color de la línea sea el indicado por CSS.</li>
+</ul>
+
+<p><strong>Nota:</strong> Se ha tenido que modificar el SVG incrustado en la página respecto al que aparece en el texto de arriba para poder reiniciar la animación desde Javascript.</p>
+
+	<h3>Explicación</h3>
+	<p>Una de las propiedades de los elementos dentro de un SVG es el <code>stroke-dasharray</code> que hace que en lugar de dibujarse una línea recta sólida, se dibuje punteada por segmentos. La propiedad indica la longitud de estos segmentos.</p>
+	<p>Otra propiedad relacionada es la de <code>stroke-dashoffset</code> que modifica la posición de esos segmentos.</p>
+
+	<fieldset>
+		<legend>Ejemplo interactivo</legend>
+		<label>Stroke-dasharray:<br> 
+			<input type="number" name="txtDasharray" id="txtDasharray" value="10">
+		</label><br><br>
+		<label>Stroke-dashoffset:<br> 
+			<input type="number" name="txtDashoffset" id="txtDashoffset" value="0">
+		</label>
+	</fieldset>
+
+	<br>
+
+	<svg id="svg2" viewBox="0 0 100 100"
+			width="200" height="200" xmlns="http://www.w3.org/2000/svg">
+			
+			<path class="path-animado" d="M 10 35 V 10
+			H 90 
+			L 10 90
+			H 90
+			V 65"
+			 
+			stroke-width="5" stroke-dasharray="10" stroke-linejoin="round" stroke-linecap="round" stroke="currentcolor" fill="none"/>
+	</svg>
+
+	<p>Como se puede ver en el ejemplo interactivo de arriba, cambiando la propiedad <code>stroke-dasharray</code> podemos hacer que los segmentos que forman las líneas punteadas puedan ser más o menos largos y con <code>stroke-dashoffset</code> la posición  de los segmentos.</p>
+
+	<p> Para hacer la animación lo que hay que hacer es partir de una longitud de segmento lo suficientemente grande como para cubrir la longitud completa de la línea (en el ejemplo de arriba se parte de <code>stroke-dasharray:500</code>, pero lo ideal sería un número menor que consiga el mismo efecto) y crear una animación que modifique el <em>offset</em> desde ese valor hasta 0 (o viceversa).</p>
+
+<pre>
+#svg1 .path-animado&#123;
+  animation: animar-path 4s linear;
+  stroke-dasharray: 500;
+&#125;
+
+@keyframes animar-path&#123;
+  0% &#123;
+    stroke-dashoffset: 500;
+  &#125;
+  100% &#123;
+    stroke-dashoffset: 0px;
+  &#125;
+}
+</pre>
+
+
+
+<h2>Animando el color de relleno</h2>
+<div class="contenido-centrado">
+<svg width="200" height="200" 
+xmlns="http://www.w3.org/2000/svg"
+viewBox="0 0 100 100" 
+id="svg3"
+stroke-width="3" 
+stroke="currentColor" 
+stroke-linecap="round" 
+stroke-linejoin="round"
+fill="none"
+class="cambiando"
+>
+	<path class="path-animado cambiando"
+	d="M20 10
+	h 60
+	v 70
+	l -30 -30
+	l -30 30
+	z" />
+</svg>
+</div>
+<br>
+<button id="btnRepetirAnim3">Repetir animación</button>
+
+<p>La imagen SVG de arriba corresponde al código que se muestra a continuación.</p>
+<pre>
+&lt;svg width="200" height="200" 
+  xmlns="http://www.w3.org/2000/svg"
+  viewbox="0 0 100 100" id="svg3"
+  stroke-width="3" stroke="currentColor" 
+  stroke-linecap="round" stroke-linejoin="round" 
+  fill="none"&gt;
+ 
+  &lt;path class="path-animado cambiando"
+    d="M20 10 h 60
+    v 70
+    l -30 -30
+    l -30 30
+    z"
+  /&gt;
+&lt;/svg&gt;
+</pre>
+
+<p>Aspectos a destacar: </p>
+<ul>
+<li>El <code>&lt;path&gt;</code> que contiene tiene la clase <code>path-animado</code> que usaremos para la animación de la línea.</li>
+<li>La propiedad <code>stroke="currentcolor"</code> hará que el color de la línea sea el indicado por CSS.</li>
+<li>La propiedad <code>fill="none"</code> hará que el color de relleno sea transparente. Este es el color que animaremos luego.</li>
+</ul>
+<p><strong>Nota:</strong> Se ha tenido que modificar el SVG incrustado en la página respecto al que aparece en el texto de arriba para poder reiniciar la animación desde Javascript.</p>
+
+<h3>Explicación</h3>
+
+<p>Realmente se reutiliza la animación de arriba para el elemento path del SVG, pero se le añade al propio <code>&lt;svg&gt;</code> una animación llamada <code>filled</code> con un pequeño delay respecto a la del path.</p>
+
+<pre>
+#svg3&#123;
+  color:#A34D81;
+  fill: transparent;
+  animation: filled 2s linear 2s forwards;
+&#125;
+
+@keyframes filled&#123;
+  0% &#123;
+    fill: transparent;
+  &#125;
+  100% &#123;
+    fill: purple;
+  &#125;
+&#125;
+</pre>
+
+
+</Layout>
+
+
+<style>
+
+	#svgCuadrado1{
+		position:absolute;
+		z-index:-1;
+	}
+	#svgTriangulo1{
+		position:absolute;
+		z-index:-1;
+		top: 1000px;
+  	left: -250px;
+	}
+
+	div.animado{
+  background-color: #125;
+  color: whitesmoke;
+  height: 50vh;
+  display: flex;
+  place-items: center;
+  position: relative;
+  overflow: hidden;
+  z-index:0;
+
+  background-image: url('/img/animado.svg'), linear-gradient(66deg, #A34D81 0%, #E69877 100%);
+  background-size: 100% 100%, auto;
+  background-size: cover;
+  background-position: center;
+}
+#svg1{
+  color:#A34D81;
+}
+
+#svg1 .path-animado.cambiando{
+  animation: animar-path 4s linear;
+  stroke-dasharray: 500;
+}
+
+
+
+@keyframes animar-path{
+  0% {
+    stroke-dashoffset: 500;
+  }
+  100% {
+    stroke-dashoffset: 0px;
+  }
+}
+
+
+#svg2{
+  color:#A34D81;
+}
+
+
+
+#svg3 .path-animado.cambiando{
+  animation: animar-path 4s linear;
+  stroke-dasharray: 500;
+}
+
+#svg3{
+  color:#A34D81;
+  fill: transparent;
+  &.cambiando{
+    animation: filled 2s linear 2s forwards;
+  }
+}
+
+@keyframes filled{
+  0% {
+    fill: transparent;
+  }
+  100% {
+    fill: purple;
+  }
+}
+</style>
+
+<script src="../scripts/animaciones.js"></script>
