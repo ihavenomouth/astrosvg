@@ -1,6 +1,9 @@
 "use strict";
 
 const init = () =>{
+  const btnRepetirAnim1 = document.querySelector("#btnRepetirAnim1");
+  //NOTA: este condicional es para evitar el error del viewTransition, que al pasar a otra página se borra el contenido y los elementos se vuelven null
+  if (btnRepetirAnim1) {
 
 function play(svg) {
   svg.firstElementChild.classList = "path-animado";
@@ -51,6 +54,7 @@ btnRepetirAnim3.addEventListener("click", e=>{
   playFill(svg3);
 });
 
+}
 
 }
 init();
